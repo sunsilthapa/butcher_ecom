@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meat_shop/app/routes/app_routes.dart';
+import 'package:meat_shop/utils/app_fonts.dart';
+import 'package:meat_shop/views/login_page_view.dart';
 
 class SplashScreens extends StatefulWidget {
   const SplashScreens({super.key});
@@ -12,17 +14,17 @@ class _SplashScreensState extends State<SplashScreens> {
   int currentScreen = 1;
   final List<SplashScreenInfo> splashScreens = [
     SplashScreenInfo(
-      imagePath: 'assets/splash1.jpg',
+      imagePath: 'assets/images/splash1.png',
       title: 'Welcome to B-Shop',
       subtitle: 'Discover the Best in Fresh Meat',
     ),
     SplashScreenInfo(
-      imagePath: 'assets/splash2.jpg',
+      imagePath: 'assets/images/splash2.png',
       title: 'Quality Meats at Your Fingertips',
       subtitle: 'Wide Range of Cuts and Meat Products',
     ),
     SplashScreenInfo(
-      imagePath: 'assets/splash3.jpg',
+      imagePath: 'assets/images/splash3.png',
       title: 'Get Cooking with \n B-Shop',
       subtitle: 'Exclusive Offers Await You',
     ),
@@ -36,9 +38,10 @@ class _SplashScreensState extends State<SplashScreens> {
               ? SplashScreen(
                   info: splashScreens[currentScreen - 1],
                   onNext: _nextScreen,
+                  onSkip: _skipScreens,
                 )
-              : AppRoute.loginRoute
-                  as Widget // Replace MainApp() with your main application screen
+              : const LoginPageView(),
+                  // Replace MainApp() with your main application screen
           ),
     );
   }
@@ -48,8 +51,17 @@ class _SplashScreensState extends State<SplashScreens> {
       setState(() {
         currentScreen++;
       });
+    }else{
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const LoginPageView()));
+  
     }
   }
+
+  void _skipScreens(){
+    setState(()=> currentScreen = splashScreens.length+1);
+  }
+
+
 }
 
 class SplashScreenInfo {
@@ -68,16 +80,19 @@ class SplashScreenInfo {
 class SplashScreen extends StatelessWidget {
   final SplashScreenInfo info;
   final VoidCallback onNext;
+  final VoidCallback onSkip;
+
 
   SplashScreen({
     required this.info,
     required this.onNext,
+    required this.onSkip,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -88,24 +103,35 @@ class SplashScreen extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text(
-                info.title,
-                textAlign: info.align,
-                style: const TextStyle(
-                    fontSize: 34,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Montserrat'),
+              Expanded(
+                flex: 7, // Occupies 70% of the available space
+                child: Container(), // Empty container to push the content
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                info.subtitle,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
+              Expanded(
+                flex: 3, // Occupies 30% of the available space
+                child: FractionallySizedBox(
+                  heightFactor:
+                      0.7, // Positions the content at 70% from the top
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        info.title,
+                        textAlign: info.align,
+                        style: AppFonts.headingText(
+                            fontSize: 40, fontWeight: FontWeight.w700),
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        info.subtitle,
+                        textAlign: TextAlign.center,
+                        style: AppFonts.bodyText(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -114,13 +140,36 @@ class SplashScreen extends StatelessWidget {
             alignment: Alignment.bottomRight,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: FloatingActionButton.extended(
+              child: TextButton(
                 onPressed: onNext,
-                icon: const Icon(Icons.arrow_right),
-                label: const Text('Next'),
+                child: Text(
+                  'Next',
+                  style: AppFonts.bodyText(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.green.shade800
+                  ),
+                ),
               ),
             ),
-          )
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: onSkip,
+                child: Text(
+                  'Skip',
+                  style: AppFonts.bodyText(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.green.shade800
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
