@@ -1,4 +1,4 @@
-package com.example.new_aggregator
+package com.example.meat_shop
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,6 +1,6 @@
 {
-    "name": "new_aggregator",
-    "short_name": "new_aggregator",
+    "name": "meat_shop",
+    "short_name": "meat_shop",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
