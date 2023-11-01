@@ -8,7 +8,7 @@ const App({ Key? key }) : super(key: key);
   Widget build(BuildContext context){
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Flutter Course",
+      title: "Meat Shop",
       initialRoute: AppRoute.splashPageRoute,
       routes: AppRoute.getApplicationRoute(),
     );
