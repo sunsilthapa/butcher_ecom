@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../app/routes/app_routes.dart';
 import '../utils/app_fonts.dart';
 import '../utils/custom_widgets.dart';
 
@@ -113,8 +114,9 @@ class _LoginPageViewState extends State<LoginPageView> {
         const SizedBox(width: 5),
         InkWell(
           onTap: () {
-            // Navigator.of(context).pushNamed("/register");
+            Navigator.pushNamed(context, AppRoute.signUpRoute);
           },
+          borderRadius: BorderRadius.circular(30),
           child: const Text(
             "Sign Up",
             style: TextStyle(color: Colors.blue),

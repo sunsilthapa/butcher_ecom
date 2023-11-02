@@ -1,5 +1,7 @@
 
 
+import 'package:meat_shop/views/signup_page_view.dart';
+
 import '../../views/login_page_view.dart';
 import '../../views/splashscreen_view.dart';
 
@@ -14,7 +16,8 @@ class AppRoute{
   static getApplicationRoute(){
     return{
       splashPageRoute: (context)=> const SplashScreens(),
-      loginRoute: (context) => const LoginPageView()
+      loginRoute: (context) => const LoginPageView(),
+      signUpRoute: (context) => const SignUpPageView(),
     };
   }
 }
