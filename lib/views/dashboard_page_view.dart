@@ -136,3 +136,67 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 }
+
+
+class CategoryCard extends StatelessWidget {
+  final String name;
+  final String imagePath;
+
+  CategoryCard(this.name, this.imagePath);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 120,
+      margin: EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Container(
+            height: 70,
+            width: 70,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: AssetImage(imagePath),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          SizedBox(height: 8.0),
+          Text(name),
+        ],
+      ),
+    );
+  }
+}
+
+class MeatItemCard extends StatelessWidget {
+  final String name;
+  final String imagePath;
+
+  MeatItemCard(this.name, this.imagePath);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 150,
+      margin: EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Container(
+            height: 120,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              image: DecorationImage(
+                image: AssetImage(imagePath),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          SizedBox(height: 8.0),
+          Text(name),
+        ],
+      ),
+    );
+  }
+}
