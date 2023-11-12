@@ -62,9 +62,11 @@ class _LoginPageViewState extends State<LoginPageView> {
                     const SizedBox(height: 25),
                     CustomButton(
                         text: "Login",
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, AppRoute.homePageRoute);
+                        },
                         width: MediaQuery.of(context).size.width),
-                    const SizedBox(height: 6),
+                    const SizedBox(height: 15),
                     CustomButton(
                       text: "Sign in with Google",
                       onPressed: () {},

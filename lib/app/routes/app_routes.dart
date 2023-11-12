@@ -1,5 +1,6 @@
 
 
+import 'package:meat_shop/views/dashboard_page_view.dart';
 import 'package:meat_shop/views/signup_page_view.dart';
 
 import '../../views/login_page_view.dart';
@@ -18,6 +19,7 @@ class AppRoute{
       splashPageRoute: (context)=> const SplashScreens(),
       loginRoute: (context) => const LoginPageView(),
       signUpRoute: (context) => const SignUpPageView(),
+      homePageRoute: (context) => const DashboardPageView(),
     };
   }
 }

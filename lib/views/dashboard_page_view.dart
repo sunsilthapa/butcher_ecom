@@ -1,201 +1,74 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:meat_shop/views/cart_page_view.dart';
+import 'package:meat_shop/views/favorite_page_view.dart';
 
+import 'home_page_view.dart';
 
-class Dashboard extends StatefulWidget {
+class DashboardPageView extends StatefulWidget {
+  const DashboardPageView({Key? key}) : super(key: key);
+
   @override
-  _DashboardState createState() => _DashboardState();
+  _DashboardPageViewState createState() => _DashboardPageViewState();
 }
 
-class _DashboardState extends State<Dashboard> {
-  int _currentIndex = 0;
+class _DashboardPageViewState extends State<DashboardPageView> {
+  PageController pageController = PageController();
+  int selectedIndex = 0;
+
+  _onPageChanged(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
+  _itemTapped(int selectedIndex) {
+    pageController.jumpToPage(selectedIndex);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Meat Shop Dashboard'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications),
-            onPressed: () {
-              // Handle notifications
-            },
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Cart',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark),
-            label: 'Bookmark',
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search for meat...',
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-              ),
-            ),
-            CarouselSlider(
-              options: CarouselOptions(
-                height: 200.0,
-                enableInfiniteScroll: true,
-                autoPlay: true,
-              ),
-              items: [
-                // Add your carousel items here
-                Container(
-                  color: Colors.blue,
-                  child: Center(
-                    child: Text('Carousel Item 1'),
-                  ),
-                ),
-                Container(
-                  color: Colors.green,
-                  child: Center(
-                    child: Text('Carousel Item 2'),
-                  ),
-                ),
-                Container(
-                  color: Colors.red,
-                  child: Center(
-                    child: Text('Carousel Item 3'),
-                  ),
-                ),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Color(0xFFf5f5f4),
+        body: PageView(
+          controller: pageController,
+          children: const <Widget>[
+            HomeScreen(),
+            CartPageView(),
+            FavoritePageView(),
+          ],
+          onPageChanged: _onPageChanged,
+          physics: const NeverScrollableScrollPhysics(),
+        ),
+        bottomNavigationBar: Container(
+          color: Color.fromARGB(255, 14, 95, 14),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+            child: GNav(
+              backgroundColor: Color.fromARGB(255, 14, 95, 14),
+              color: Colors.white,
+              activeColor: const Color.fromARGB(255, 31, 79, 56),
+              tabBackgroundColor: Colors.white,
+              gap: 8,
+              padding: const EdgeInsets.all(16),
+              selectedIndex: selectedIndex,
+              onTabChange: (index) {
+                _itemTapped(index);
+                setState(() {
+                  selectedIndex = index;
+                });
+              },
+              tabs: const [
+                GButton(icon: Icons.home, text: 'Home'),
+                GButton(icon: Icons.shopping_cart, text: 'Cart'),
+                GButton(icon: Icons.favorite_border, text: 'Favorite'),
+                GButton(icon: Icons.verified_user_outlined, text: 'Profile'),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Categories',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
-            Container(
-              height: 100,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  CategoryCard('Beef', 'assets/beef.jpg'),
-                  CategoryCard('Chicken', 'assets/chicken.jpg'),
-                  CategoryCard('Pork', 'assets/pork.jpg'),
-                  CategoryCard('Lamb', 'assets/lamb.jpg'),
-                  CategoryCard('Seafood', 'assets/seafood.jpg'),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Meat Items',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
-            Container(
-              height: 200,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  MeatItemCard('Beef Steak', 'assets/beef_steak.jpg'),
-                  MeatItemCard('Grilled Chicken', 'assets/grilled_chicken.jpg'),
-                  MeatItemCard('Pork Ribs', 'assets/pork_ribs.jpg'),
-                  MeatItemCard('Lamb Chops', 'assets/lamb_chops.jpg'),
-                  MeatItemCard('Shrimp', 'assets/shrimp.jpg'),
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
-    );
-  }
-}
-
-
-class CategoryCard extends StatelessWidget {
-  final String name;
-  final String imagePath;
-
-  CategoryCard(this.name, this.imagePath);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 120,
-      margin: EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Container(
-            height: 70,
-            width: 70,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage(imagePath),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SizedBox(height: 8.0),
-          Text(name),
-        ],
-      ),
-    );
-  }
-}
-
-class MeatItemCard extends StatelessWidget {
-  final String name;
-  final String imagePath;
-
-  MeatItemCard(this.name, this.imagePath);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 150,
-      margin: EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Container(
-            height: 120,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              image: DecorationImage(
-                image: AssetImage(imagePath),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SizedBox(height: 8.0),
-          Text(name),
-        ],
       ),
     );
   }

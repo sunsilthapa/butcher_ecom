@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'app_fonts.dart';
 
 class CustomTextField extends StatelessWidget {
-  final TextEditingController controller;
-  final String hintText;
-  final IconData prefixIcon;
-  final TextInputType keyboardType;
+  final TextEditingController? controller;
+  final String? hintText;
+  final IconData? prefixIcon;
+  final TextInputType? keyboardType;
   final String? Function(String?)? validator;
   final bool isPassword;
 
   const CustomTextField({
-    required this.controller,
-    required this.hintText,
-    required this.prefixIcon,
-    required this.keyboardType,
-    required this.validator,
+    this.controller,
+    this.hintText,
+    this.prefixIcon,
+    this.keyboardType,
+    this.validator,
     this.isPassword = false,
     Key? key,
   }) : super(key: key);

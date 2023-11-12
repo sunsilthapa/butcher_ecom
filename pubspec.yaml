@@ -37,6 +37,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^4.0.4
   carousel_slider: ^4.2.1
+  flutter_screenutil: ^5.7.0
+  dots_indicator: ^3.0.0
+  google_nav_bar: ^5.0.6
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +66,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/icons/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
