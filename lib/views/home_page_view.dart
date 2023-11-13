@@ -88,6 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: screenHeight * 0.03,
           ),
           CategorySection(),
+          const SizedBox(height: 10,),
           ProductSection(),
         ],
       ),
@@ -134,7 +135,7 @@ class HomeHeader extends StatelessWidget {
                 Colors.greenAccent, // Adjust the color according to your design
           ),
           child: IconButton(
-            icon: const Icon(Icons.notifications, color: Colors.white),
+            icon: const Icon(Icons.notifications, color: Colors.white, size: 30,),
             onPressed: () {
               // Add your notification logic here
             },
@@ -157,7 +158,7 @@ class CategorySection extends StatelessWidget {
           padding: EdgeInsets.all(screenWidth * 0.03),
           child: Text(
             'Categories',
-            style: AppFonts.headingText(),
+            style: AppFonts.headingText(fontWeight: FontWeight.w500),
           ),
         ),
         SingleChildScrollView(
@@ -191,6 +192,8 @@ class ProductSection extends StatelessWidget {
     {"name": "Lean and Tender buff", "price": "24.99"},
     {"name": "Nutrient-Rich Organ Meat", "price": "22.99"},
     {"name": "Succulent Pork Cuts", "price": "17.99"},
+    {"name": "Chicken sausage with pickle", "price": "17.99"},
+    {"name": "Chicken Drumstick", "price": "17.99"},
   ];
 
   ProductSection({super.key});
@@ -206,7 +209,7 @@ class ProductSection extends StatelessWidget {
           padding: EdgeInsets.all(screenWidth * 0.02),
           child: Text(
             'Featured Products',
-            style: AppFonts.headingText(),
+            style: AppFonts.headingText(fontWeight: FontWeight.w500),
           ),
         ),
         GridView.builder(
@@ -251,8 +254,7 @@ class ProductCard extends StatelessWidget {
     var screenWidth = MediaQuery.of(context).size.width;
 
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 1.0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
       margin: EdgeInsets.all(screenWidth * 0.03),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -274,7 +276,7 @@ class ProductCard extends StatelessWidget {
           Center(
             child: Text(
               '\$$price',
-              style: AppFonts.bodyText(),
+              style: AppFonts.bodyText(color: Colors.red),
             ),
           ),
         ],
@@ -321,236 +323,3 @@ class CategoryCard extends StatelessWidget {
 
 
 
-
-
-// import 'package:flutter/material.dart';
-// import 'package:carousel_slider/carousel_slider.dart';
-// import '../utils/app_fonts.dart';
-
-// class DashboardPageView extends StatefulWidget {
-//   const DashboardPageView({Key? key}) : super(key: key);
-
-//   @override
-//   _DashboardPageViewState createState() => _DashboardPageViewState();
-// }
-
-// class _DashboardPageViewState extends State<DashboardPageView> {
-//   List<String> images = [
-//     "assets/images/splash1.png",
-//     "assets/images/splash2.png",
-//     "assets/images/splash3.png",
-//   ];
-//   // int _currentIndex = 0;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(
-//       child: Scaffold(
-//         // backgroundColor: Colors.red,
-//         body: Column(
-//           mainAxisAlignment: MainAxisAlignment.start,
-//           children: [
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.start,
-//               children: [
-//                 TextField(
-//                   cursorColor: Colors.green.shade900,
-//                   cursorHeight: 20,
-//                   keyboardType: TextInputType.text,
-//                   style: AppFonts.bodyText(),
-//                   decoration: InputDecoration(
-//                     filled: true,
-//                     fillColor: Colors.grey.shade300,
-//                     enabledBorder: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(20),
-//                       borderSide: BorderSide.none,
-//                     ),
-//                     focusedBorder: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(20),
-//                       borderSide: BorderSide.none,
-//                     ),
-//                     prefixIcon: Icon(
-//                       Icons.search,
-//                       color: Colors.green.shade900,
-//                       size: 20,
-//                     ),
-//                     hintText: "Search your meat",
-//                     hintStyle: const TextStyle(fontSize: 17.0),
-//                   ),
-//                 ),
-//                 IconButton(
-//                   icon: const Icon(
-//                     Icons.notifications,
-//                     color: Colors.black,
-//                   ),
-//                   onPressed: () {
-//                     // Handle notifications
-//                   },
-//                 ),
-//               ],
-//             ),
-//             //   CarouselSlider(
-//             //     options: CarouselOptions(
-//             //       height: 150,
-//             //       initialPage: 0,
-//             //       aspectRatio: 16 / 9,
-//             //       viewportFraction: 0.95,
-//             //       autoPlay: true,
-//             //       autoPlayInterval: const Duration(seconds: 2),
-//             //       autoPlayAnimationDuration: const Duration(milliseconds: 800),
-//             //       autoPlayCurve: Curves.fastOutSlowIn,
-//             //       onPageChanged: (index, reason) {
-//             //         setState(() {
-//             //           _currentIndex = index;
-//             //         });
-//             //       },
-//             //     ),
-//             //     items: images.map((image) {
-//             //       return Builder(
-//             //         builder: (BuildContext context) {
-//             //           return Container(
-//             //             width: MediaQuery.of(context).size.width,
-//             //             margin: const EdgeInsets.symmetric(horizontal: 5.0),
-//             //             decoration: BoxDecoration(
-//             //               borderRadius: BorderRadius.circular(8.0),
-//             //               image: DecorationImage(
-//             //                 fit: BoxFit.cover,
-//             //                 image: AssetImage(image),
-//             //               ),
-//             //             ),
-//             //           );
-//             //         },
-//             //       );
-//             //     }).toList(),
-//             //   ),
-//             //   const SizedBox(height: 10),
-//             //   const Padding(
-//             //     padding: EdgeInsets.all(16.0),
-//             //     child: Text(
-//             //       'Categories',
-//             //       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-//             //     ),
-//             //   ),
-//             //   Container(
-//             //     height: 100,
-//             //     child: ListView(
-//             //       scrollDirection: Axis.horizontal,
-//             //       children: [
-//             //         CategoryCard('Beef', 'assets/images/splash2.png'),
-//             //         CategoryCard('Chicken', 'assets/images/splash2.png'),
-//             //         CategoryCard('Pork', 'assets/images/splash2.png'),
-//             //         CategoryCard('Lamb', 'assets/images/splash2.png'),
-//             //         CategoryCard('Seafood', 'assets/images/splash2.png'),
-//             //       ],
-//             //     ),
-//             //   ),
-//             //   const Padding(
-//             //     padding: EdgeInsets.all(16.0),
-//             //     child: Text(
-//             //       'Meat Items',
-//             //       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-//             //     ),
-//             //   ),
-//             //   Container(
-//             //     child: ListView(
-//             //       scrollDirection: Axis.horizontal,
-//             //       children: [
-//             //         MeatItemCard('Beef Steak', 'assets/images/splash1.png'),
-//             //         MeatItemCard('Grilled Chicken', 'assets/images/splash1.png'),
-//             //         MeatItemCard('Pork Ribs', 'assets/images/splash1.png'),
-//             //         MeatItemCard('Lamb Chops', 'assets/images/splash1.png'),
-//             //         MeatItemCard('Shrimp', 'assets/images/splash1.png'),
-//             //       ],
-//             //     ),
-//             //   ),
-//           ],
-//         ),
-//         // bottomNavigationBar: BottomNavigationBar(
-//         // currentIndex: _currentIndex,
-//         // onTap: (index) {
-//         //   setState(() {
-//         //     _currentIndex = index;
-//         //   });
-//         // },
-//         // items: const [
-//         //   BottomNavigationBarItem(
-//         //     icon: Icon(Icons.home),
-//         //     label: 'Home',
-//         //   ),
-//         //   BottomNavigationBarItem(
-//         //     icon: Icon(Icons.shopping_cart),
-//         //     label: 'Cart',
-//         //   ),
-//         //   BottomNavigationBarItem(
-//         //     icon: Icon(Icons.bookmark),
-//         //     label: 'Bookmark',
-//         //   ),
-//         // ],
-//       ),
-//       // ),
-//     );
-//   }
-// }
-
-// class CategoryCard extends StatelessWidget {
-//   final String name;
-//   final String imagePath;
-
-//   CategoryCard(this.name, this.imagePath);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: 120,
-//       margin: const EdgeInsets.all(8.0),
-//       child: Column(
-//         children: [
-//           Container(
-//             height: 70,
-//             width: 70,
-//             decoration: BoxDecoration(
-//               shape: BoxShape.circle,
-//               image: DecorationImage(
-//                 image: AssetImage(imagePath),
-//                 fit: BoxFit.cover,
-//               ),
-//             ),
-//           ),
-//           const SizedBox(height: 8.0),
-//           Text(name),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-// class MeatItemCard extends StatelessWidget {
-//   final String name;
-//   final String imagePath;
-
-//   MeatItemCard(this.name, this.imagePath);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: 150,
-//       margin: const EdgeInsets.all(8.0),
-//       child: Column(
-//         children: [
-//           Container(
-//             height: 120,
-//             decoration: BoxDecoration(
-//               borderRadius: BorderRadius.circular(10.0),
-//               image: DecorationImage(
-//                 image: AssetImage(imagePath),
-//                 fit: BoxFit.cover,
-//               ),
-//             ),
-//           ),
-//           const SizedBox(height: 8.0),
-//           Text(name),
-//         ],
-//       ),
-//     );
-//   }
-// }
