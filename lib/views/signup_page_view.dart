@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meat_shop/app/routes/app_routes.dart';
 
 import '../utils/app_fonts.dart';
 import '../utils/custom_widgets.dart';
@@ -73,7 +74,8 @@ class _SignUpPageViewState extends State<SignUpPageView> {
                       hintText: "Confirm Password",
                       prefixIcon: Icons.lock_clock_rounded,
                       keyboardType: TextInputType.text,
-                      validator:(value) => ValidateSignUp.confirmPasswordValidator(
+                      validator: (value) =>
+                          ValidateSignUp.confirmPasswordValidator(
                         passwordController.text,
                         value,
                       ),
@@ -82,7 +84,12 @@ class _SignUpPageViewState extends State<SignUpPageView> {
                     const SizedBox(height: 25),
                     CustomButton(
                       text: "Sign Up",
-                      onPressed: () {},
+                      onPressed: () {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          // Form is valid, proceed with your navigation logic
+                          Navigator.pushNamed(context, AppRoute.homePageRoute);
+                        }
+                      },
                       width: MediaQuery.of(context).size.width,
                     ),
                     const SizedBox(height: 12),
@@ -107,7 +114,7 @@ class _SignUpPageViewState extends State<SignUpPageView> {
         ),
         InkWell(
           onTap: () {
-            Navigator.of(context).pop();
+            Navigator.pushNamed(context, AppRoute.loginRoute);
           },
           child: const Text(
             "Login",
@@ -141,14 +148,14 @@ class ValidateSignUp {
     return null;
   }
 
-static String? confirmPasswordValidator(String? password, String? confirmPassword) {
-  if (confirmPassword == null || confirmPassword.isEmpty) {
-    return "Please confirm your password";
+  static String? confirmPasswordValidator(
+      String? password, String? confirmPassword) {
+    if (confirmPassword == null || confirmPassword.isEmpty) {
+      return "Please confirm your password";
+    }
+    if (password != confirmPassword) {
+      return "Passwords do not match";
+    }
+    return null;
   }
-  if (password != confirmPassword) {
-    return "Passwords do not match";
-  }
-  return null;
-}
-
 }

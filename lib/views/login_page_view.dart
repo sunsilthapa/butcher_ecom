@@ -63,7 +63,11 @@ class _LoginPageViewState extends State<LoginPageView> {
                     CustomButton(
                         text: "Login",
                         onPressed: () {
-                          Navigator.pushNamed(context, AppRoute.homePageRoute);
+                          if (_formKey.currentState?.validate() ?? false) {
+                            // Form is valid, proceed with your navigation logic
+                            Navigator.pushNamed(
+                                context, AppRoute.homePageRoute);
+                          }
                         },
                         width: MediaQuery.of(context).size.width),
                     const SizedBox(height: 15),
