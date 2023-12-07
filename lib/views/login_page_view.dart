@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meat_shop/app/common/snackbar_common.dart';
 
 import '../app/routes/app_routes.dart';
 import '../utils/app_fonts.dart';
@@ -64,6 +65,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                         text: "Login",
                         onPressed: () {
                           if (_formKey.currentState?.validate() ?? false) {
+                            showSnackbar(context, "login success", color: Colors.green);
                             // Form is valid, proceed with your navigation logic
                             Navigator.pushNamed(
                                 context, AppRoute.homePageRoute);
@@ -73,7 +75,8 @@ class _LoginPageViewState extends State<LoginPageView> {
                     const SizedBox(height: 15),
                     CustomButton(
                       text: "Sign in with Google",
-                      onPressed: () {},
+                      onPressed: () {
+                      },
                       width: MediaQuery.of(context).size.width,
                       leadingIcon: Image.asset(
                         "assets/images/google.webp",

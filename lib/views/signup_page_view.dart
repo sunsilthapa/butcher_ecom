@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meat_shop/app/common/snackbar_common.dart';
 import 'package:meat_shop/app/routes/app_routes.dart';
 
 import '../utils/app_fonts.dart';
@@ -86,6 +87,7 @@ class _SignUpPageViewState extends State<SignUpPageView> {
                       text: "Sign Up",
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) {
+                          showSnackbar(context, 'register success', color: Colors.green);
                           // Form is valid, proceed with your navigation logic
                           Navigator.pushNamed(context, AppRoute.homePageRoute);
                         }

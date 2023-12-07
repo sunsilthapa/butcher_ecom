@@ -5,7 +5,7 @@ const MaterialColor primaryColor =  MaterialColor(
     500:  Color(0xFF7ED957),
   },);
 const Color backgroundColor = Colors.grey;
-const Color buttonColor = Color.fromARGB(255, 17, 79, 10)B(255, 26, 255, 0);
+const Color buttonColor = Color.fromARGB(255, 17, 79, 10);
 
 ThemeData getApplicationTheme() {
   return ThemeData(
