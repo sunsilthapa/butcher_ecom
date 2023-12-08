@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:meat_shop/app/common/snackbar_common.dart';
+import 'package:meat_shop/app/routes/app_routes.dart';
 
-import '../utils/app_fonts.dart';
-import '../utils/custom_widgets.dart';
+import '../app/common/common_textfield.dart';
 
 class SignUpPageView extends StatefulWidget {
   const SignUpPageView({Key? key}) : super(key: key);
@@ -33,16 +34,17 @@ class _SignUpPageViewState extends State<SignUpPageView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    const SizedBox(height: 48),
                     Text(
-                      "B-Shop SignUp",
-                      style: AppFonts.decorative(),
+                      "B-Shop ",
+                      style: Theme.of(context).textTheme.displayLarge,
                     ),
-                    const SizedBox(height: 68),
+                    const SizedBox(height: 18),
                     Text(
                       "Create an Account",
-                      style: AppFonts.headingText(fontSize: 40),
+                      style: Theme.of(context).textTheme.displayLarge,
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 50),
                     CustomTextField(
                       controller: usernameController,
                       hintText: "Username",
@@ -73,17 +75,29 @@ class _SignUpPageViewState extends State<SignUpPageView> {
                       hintText: "Confirm Password",
                       prefixIcon: Icons.lock_clock_rounded,
                       keyboardType: TextInputType.text,
-                      validator:(value) => ValidateSignUp.confirmPasswordValidator(
+                      validator: (value) =>
+                          ValidateSignUp.confirmPasswordValidator(
                         passwordController.text,
                         value,
                       ),
                       isPassword: true,
                     ),
                     const SizedBox(height: 25),
-                    CustomButton(
-                      text: "Sign Up",
-                      onPressed: () {},
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState?.validate() ?? false) {
+                              showSnackbar(context, "register success",
+                                  color: Colors.green);
+                              // Form is valid, proceed with your navigation logic
+                              Navigator.pushNamed(
+                                  context, AppRoute.homePageRoute);
+                            }
+                          },
+                          child: const Text(
+                            "Sign Up",
+                          )),
                     ),
                     const SizedBox(height: 12),
                     _buildLoginLink(context),
@@ -107,7 +121,7 @@ class _SignUpPageViewState extends State<SignUpPageView> {
         ),
         InkWell(
           onTap: () {
-            Navigator.of(context).pop();
+            Navigator.pushNamed(context, AppRoute.loginRoute);
           },
           child: const Text(
             "Login",
@@ -141,14 +155,14 @@ class ValidateSignUp {
     return null;
   }
 
-static String? confirmPasswordValidator(String? password, String? confirmPassword) {
-  if (confirmPassword == null || confirmPassword.isEmpty) {
-    return "Please confirm your password";
+  static String? confirmPasswordValidator(
+      String? password, String? confirmPassword) {
+    if (confirmPassword == null || confirmPassword.isEmpty) {
+      return "Please confirm your password";
+    }
+    if (password != confirmPassword) {
+      return "Passwords do not match";
+    }
+    return null;
   }
-  if (password != confirmPassword) {
-    return "Passwords do not match";
-  }
-  return null;
-}
-
 }

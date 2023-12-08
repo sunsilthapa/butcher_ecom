@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:meat_shop/app/common/snackbar_common.dart';
 
+import '../app/common/common_textfield.dart';
 import '../app/routes/app_routes.dart';
-import '../utils/app_fonts.dart';
-import '../utils/custom_widgets.dart';
 
 class LoginPageView extends StatefulWidget {
   const LoginPageView({Key? key}) : super(key: key);
@@ -12,8 +12,8 @@ class LoginPageView extends StatefulWidget {
 }
 
 class _LoginPageViewState extends State<LoginPageView> {
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool isVisible = true;
 
   final _formKey = GlobalKey<FormState>();
@@ -32,16 +32,15 @@ class _LoginPageViewState extends State<LoginPageView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    const SizedBox(height: 58),
                     Text(
-                      "B-Shop",
-                      style: AppFonts.decorative(),
+                      "Welcome to ",
+                      style: Theme.of(context).textTheme.displayLarge,
                     ),
-                    const SizedBox(height: 68),
-                    Text(
-                      "Welcome to B-Shop",
-                      style: AppFonts.headingText(fontSize: 40),
-                    ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 18),
+                    Text(" B-Shop",
+                        style: Theme.of(context).textTheme.displayLarge),
+                    const SizedBox(height: 60),
                     CustomTextField(
                       controller: _emailController,
                       hintText: "Email Address",
@@ -58,26 +57,45 @@ class _LoginPageViewState extends State<LoginPageView> {
                       validator: ValidateLogin.password,
                       isPassword: true,
                     ),
+                    const SizedBox(height: 15),
                     _buildForgotPasswordLink(),
                     const SizedBox(height: 25),
-                    CustomButton(
-                        text: "Login",
-                        onPressed: () {
-                          Navigator.pushNamed(context, AppRoute.homePageRoute);
-                        },
-                        width: MediaQuery.of(context).size.width),
-                    const SizedBox(height: 15),
-                    CustomButton(
-                      text: "Sign in with Google",
-                      onPressed: () {},
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      leadingIcon: Image.asset(
-                        "assets/images/google.webp",
-                        width: 25,
-                        height: 25,
-                      ),
+                      child: ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState?.validate() ?? false) {
+                              showSnackbar(context, "login success",
+                                  color: Colors.green);
+                              // Form is valid, proceed with your navigation logic
+                              Navigator.pushNamed(
+                                  context, AppRoute.homePageRoute);
+                            }
+                          },
+                          child: const Text(
+                            "Login",
+                          )),
                     ),
-                    const SizedBox(height: 6),
+                    const SizedBox(height: 15),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: ElevatedButton(
+                          onPressed: () {},
+                          child: Wrap(
+                            children: [
+                              const Text("Sign in with Google"),
+                              const SizedBox(
+                                width: 33,
+                              ),
+                              Image.asset(
+                                "assets/images/google.webp",
+                                width: 25,
+                                height: 25,
+                              ),
+                            ],
+                          )),
+                    ),
+                    const SizedBox(height: 16),
                     _buildSignUpLink(context),
                   ],
                 ),
@@ -99,7 +117,7 @@ class _LoginPageViewState extends State<LoginPageView> {
         },
         child: Text(
           "Forgot Password?",
-          style: AppFonts.bodyText(),
+          style: Theme.of(context).textTheme.displayMedium,
         ),
       ),
     );
