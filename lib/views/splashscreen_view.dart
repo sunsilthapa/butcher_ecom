@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meat_shop/app/routes/app_routes.dart';
-import 'package:meat_shop/utils/app_fonts.dart';
 import 'package:meat_shop/views/login_page_view.dart';
 
 class SplashScreens extends StatefulWidget {
@@ -118,17 +116,13 @@ class SplashScreen extends StatelessWidget {
                       Text(
                         info.title,
                         textAlign: info.align,
-                        style: AppFonts.headingText(
-                            fontSize: 40, fontWeight: FontWeight.w700),
+                        style:Theme.of(context).textTheme.displayLarge,
                       ),
                       const SizedBox(height: 20),
                       Text(
                         info.subtitle,
                         textAlign: TextAlign.center,
-                        style: AppFonts.bodyText(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black),
+                        style: Theme.of(context).textTheme.displayMedium,
                       ),
                     ],
                   ),
@@ -144,11 +138,7 @@ class SplashScreen extends StatelessWidget {
                 onPressed: onNext,
                 child: Text(
                   'Next',
-                  style: AppFonts.bodyText(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.green.shade800
-                  ),
+                  style: Theme.of(context).textTheme.displayMedium
                 ),
               ),
             ),
@@ -161,11 +151,7 @@ class SplashScreen extends StatelessWidget {
                 onPressed: onSkip,
                 child: Text(
                   'Skip',
-                  style: AppFonts.bodyText(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.green.shade800
-                  ),
+                  style:Theme.of(context).textTheme.displayMedium,
                 ),
               ),
             ),

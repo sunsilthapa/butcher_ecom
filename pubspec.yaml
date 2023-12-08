@@ -80,10 +80,10 @@ flutter:
   # example:
 
   fonts:
-    - family: Montserrat
+    - family: Montserrat Bold
       fonts:
         - asset: assets/fonts/Montserrat-Bold.ttf
-          
+
     - family: Lato Light
       fonts:
         - asset: assets/fonts/Montserrat-Bold.ttf

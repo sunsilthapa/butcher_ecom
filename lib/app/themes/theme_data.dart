@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-const Color backgroundColor = Colors.grey;
+const Color backgroundColor = Color.fromARGB(255, 255, 254, 254);
 const Color buttonColor = Color.fromARGB(255, 35, 82, 39);
- 
+
 ThemeData getApplicationTheme() {
   return ThemeData(
     useMaterial3: true,
@@ -32,11 +32,11 @@ ThemeData getApplicationTheme() {
 
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
+        foregroundColor: Colors.white,
         padding: const EdgeInsets.symmetric(vertical: 20),
         textStyle: const TextStyle(
           fontFamily: "Lato Bold", // Replace with the actual font family name
           fontSize: 20,
-          color: Colors.white,
           fontWeight: FontWeight.w500,
         ),
         backgroundColor: buttonColor,
