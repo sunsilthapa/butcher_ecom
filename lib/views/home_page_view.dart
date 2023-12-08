@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-
-import '../utils/app_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -158,7 +155,7 @@ class CategorySection extends StatelessWidget {
           padding: EdgeInsets.all(screenWidth * 0.03),
           child: Text(
             'Categories',
-            style: AppFonts.headingText(fontWeight: FontWeight.w500),
+            style: Theme.of(context).textTheme.displayMedium,
           ),
         ),
         SingleChildScrollView(
@@ -209,7 +206,7 @@ class ProductSection extends StatelessWidget {
           padding: EdgeInsets.all(screenWidth * 0.02),
           child: Text(
             'Featured Products',
-            style: AppFonts.headingText(fontWeight: FontWeight.w500),
+            style: Theme.of(context).textTheme.displayMedium,
           ),
         ),
         GridView.builder(
@@ -269,14 +266,13 @@ class ProductCard extends StatelessWidget {
           Center(
             child: Text(
               productName,
-              style: AppFonts.bodyText(fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.displayMedium
             ),
           ),
           SizedBox(height: screenWidth * 0.01),
           Center(
             child: Text(
               '\$$price',
-              style: AppFonts.bodyText(color: Colors.red),
             ),
           ),
         ],
@@ -312,7 +308,7 @@ class CategoryCard extends StatelessWidget {
             SizedBox(height: screenWidth * 0.02),
             Text(
               categoryName,
-              style: AppFonts.bodyText(fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.displayMedium,
             ),
           ],
         ),

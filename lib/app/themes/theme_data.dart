@@ -1,42 +1,48 @@
 import 'package:flutter/material.dart';
 
-const MaterialColor primaryColor =  MaterialColor(
-  0xFF7ED957,   <int, Color>{
-    500:  Color(0xFF7ED957),
-  },);
 const Color backgroundColor = Colors.grey;
-const Color buttonColor = Color.fromARGB(255, 17, 79, 10);
-
+const Color buttonColor = Color.fromARGB(255, 35, 82, 39);
+ 
 ThemeData getApplicationTheme() {
   return ThemeData(
-    primarySwatch: primaryColor,
+    useMaterial3: true,
     scaffoldBackgroundColor: backgroundColor,
-
     // Heading font
     textTheme: const TextTheme(
       displayLarge: TextStyle(
         fontSize: 32,
         fontWeight: FontWeight.bold,
-        fontFamily: "HeadingFont", // Replace with the actual font family name
+        fontFamily:
+            "Montserrat Bold", // Replace with the actual font family name
+        color: Colors.black,
+      ),
+      displayMedium: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.normal,
+        fontFamily: "Lato Bold", // Replace with the actual font family name
         color: Colors.black,
       ),
       // Add more text styles as needed
     ),
 
     // Body text font
-    fontFamily: "BodyFont", // Replace with the actual font family name
+    fontFamily: "Lato Light",
+
+    // Replace with the actual font family name
 
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(vertical: 20),
         textStyle: const TextStyle(
-          fontFamily: "ButtonFont", // Replace with the actual font family name
-          fontSize: 18,
+          fontFamily: "Lato Bold", // Replace with the actual font family name
+          fontSize: 20,
           color: Colors.white,
           fontWeight: FontWeight.w500,
         ),
         backgroundColor: buttonColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(20),
+          side: const BorderSide(color: Colors.grey),
         ),
       ),
     ),

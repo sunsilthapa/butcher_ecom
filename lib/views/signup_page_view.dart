@@ -37,7 +37,7 @@ class _SignUpPageViewState extends State<SignUpPageView> {
                   children: [
                     Text(
                       "B-Shop SignUp",
-                      style: AppFonts.decorative(),
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                     const SizedBox(height: 68),
                     Text(
@@ -87,7 +87,8 @@ class _SignUpPageViewState extends State<SignUpPageView> {
                       text: "Sign Up",
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) {
-                          showSnackbar(context, 'register success', color: Colors.green);
+                          showSnackbar(context, 'register success',
+                              color: Colors.green);
                           // Form is valid, proceed with your navigation logic
                           Navigator.pushNamed(context, AppRoute.homePageRoute);
                         }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meat_shop/app/routes/app_routes.dart';
+import 'package:meat_shop/app/themes/theme_data.dart';
 
 class App extends StatelessWidget {
 const App({ Key? key }) : super(key: key);
@@ -13,6 +14,7 @@ const App({ Key? key }) : super(key: key);
       title: "Meat Shop",
       initialRoute: AppRoute.splashPageRoute,
       routes: AppRoute.getApplicationRoute(),
+      theme: getApplicationTheme()
     );
   }
 }

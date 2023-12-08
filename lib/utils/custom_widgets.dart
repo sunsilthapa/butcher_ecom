@@ -29,7 +29,6 @@ class CustomTextField extends StatelessWidget {
       cursorHeight: 20,
       keyboardType: keyboardType,
       validator: validator,
-      style: AppFonts.bodyText(),
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.grey.shade300,
@@ -48,59 +47,6 @@ class CustomTextField extends StatelessWidget {
         ),
         hintText: hintText,
         hintStyle: const TextStyle(fontSize: 17.0),
-      ),
-    );
-  }
-}
-
-class CustomButton extends StatelessWidget {
-  final String text;
-  final void Function() onPressed;
-  final double width;
-  final Widget? leadingIcon;
-
-  const CustomButton({
-    required this.text,
-    required this.onPressed,
-    required this.width,
-    this.leadingIcon,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: width,
-      child: ElevatedButton(
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.green.shade900),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-              side: const BorderSide(color: Colors.grey),
-            ),
-          ),
-          padding: MaterialStateProperty.all<EdgeInsets>(
-            const EdgeInsets.symmetric(vertical: 20),
-          ),
-        ),
-        onPressed: onPressed,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (leadingIcon != null) ...[
-              leadingIcon!,
-              const SizedBox(width: 8),
-            ],
-            Text(
-              text,
-              style: AppFonts.bodyText(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.white),
-            ),
-          ],
-        ),
       ),
     );
   }

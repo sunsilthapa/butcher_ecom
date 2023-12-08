@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:meat_shop/app/common/snackbar_common.dart';
 
 import '../app/routes/app_routes.dart';
-import '../utils/app_fonts.dart';
 import '../utils/custom_widgets.dart';
 
 class LoginPageView extends StatefulWidget {
@@ -13,8 +12,8 @@ class LoginPageView extends StatefulWidget {
 }
 
 class _LoginPageViewState extends State<LoginPageView> {
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool isVisible = true;
 
   final _formKey = GlobalKey<FormState>();
@@ -35,12 +34,12 @@ class _LoginPageViewState extends State<LoginPageView> {
                   children: [
                     Text(
                       "B-Shop",
-                      style: AppFonts.decorative(),
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                     const SizedBox(height: 68),
                     Text(
                       "Welcome to B-Shop",
-                      style: AppFonts.headingText(fontSize: 40),
+                      style: Theme.of(context).textTheme.displayMedium
                     ),
                     const SizedBox(height: 20),
                     CustomTextField(
@@ -65,7 +64,8 @@ class _LoginPageViewState extends State<LoginPageView> {
                         text: "Login",
                         onPressed: () {
                           if (_formKey.currentState?.validate() ?? false) {
-                            showSnackbar(context, "login success", color: Colors.green);
+                            showSnackbar(context, "login success",
+                                color: Colors.green);
                             // Form is valid, proceed with your navigation logic
                             Navigator.pushNamed(
                                 context, AppRoute.homePageRoute);
@@ -75,8 +75,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                     const SizedBox(height: 15),
                     CustomButton(
                       text: "Sign in with Google",
-                      onPressed: () {
-                      },
+                      onPressed: () {},
                       width: MediaQuery.of(context).size.width,
                       leadingIcon: Image.asset(
                         "assets/images/google.webp",
@@ -106,7 +105,7 @@ class _LoginPageViewState extends State<LoginPageView> {
         },
         child: Text(
           "Forgot Password?",
-          style: AppFonts.bodyText(),
+          style: Theme.of(context).textTheme.displayMedium,
         ),
       ),
     );
