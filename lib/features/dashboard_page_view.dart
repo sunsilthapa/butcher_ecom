@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:meat_shop/views/cart_page_view.dart';
-import 'package:meat_shop/views/favorite_page_view.dart';
+import 'package:meat_shop/features/cart_page_view.dart';
+import 'package:meat_shop/features/favorite_page_view.dart';
 
 import 'home_page_view.dart';
 

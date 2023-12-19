@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meat_shop/views/login_page_view.dart';
+import 'package:meat_shop/features/auth/presentation/view/login_view.dart';
 
 class SplashScreens extends StatefulWidget {
   const SplashScreens({super.key});
@@ -38,7 +38,7 @@ class _SplashScreensState extends State<SplashScreens> {
                   onNext: _nextScreen,
                   onSkip: _skipScreens,
                 )
-              : const LoginPageView(),
+              : const LoginView(),
                   // Replace MainApp() with your main application screen
           ),
     );
@@ -50,7 +50,7 @@ class _SplashScreensState extends State<SplashScreens> {
         currentScreen++;
       });
     }else{
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const LoginPageView()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const LoginView()));
   
     }
   }
