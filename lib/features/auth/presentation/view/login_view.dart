@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:meat_shop/config/router/app_route.dart';
 
 class LoginView extends ConsumerStatefulWidget {
@@ -18,7 +19,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
 
   // final _usernameController = TextEditingController();
   // final _passwordController = TextEditingController();
-  final _gap = const SizedBox(height: 8);
+  final _gap = const SizedBox(height: 18);
   bool isObscure = true;
   @override
   Widget build(BuildContext context) {
@@ -38,10 +39,22 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     TextFormField(
                       key: const ValueKey('username'),
                       controller: _usernameController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Username',
-                      ),
+                      decoration: InputDecoration(
+                          prefixIcon: const Icon(LineIcons.user),
+                          border: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                          ),
+                          enabledBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            borderSide: BorderSide(color: Colors.green),
+                          ),
+                          labelText: 'Username',
+                          labelStyle:
+                              Theme.of(context).textTheme.displayMedium),
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Please enter username';
@@ -55,7 +68,20 @@ class _LoginViewState extends ConsumerState<LoginView> {
                       controller: _passwordController,
                       obscureText: isObscure,
                       decoration: InputDecoration(
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          borderSide: BorderSide(color: Colors.green),
+                        ),
+                        prefixIcon: const Icon(LineIcons.lock),
                         labelText: 'Password',
+                        labelStyle: Theme.of(context).textTheme.displayMedium,
                         suffixIcon: IconButton(
                           icon: Icon(
                             isObscure ? Icons.visibility : Icons.visibility_off,
@@ -96,7 +122,6 @@ class _LoginViewState extends ConsumerState<LoginView> {
                       ),
                     ),
                     _gap,
-
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: ElevatedButton(
@@ -115,28 +140,28 @@ class _LoginViewState extends ConsumerState<LoginView> {
                             ],
                           )),
                     ),
-                   _gap,
+                    _gap,
                     Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text(
-          "Are you new? Create an account",
-          style: TextStyle(color: Colors.black),
-        ),
-        const SizedBox(width: 5),
-        InkWell(
-          onTap: () {
-            Navigator.pushNamed(context, AppRoute.registerRoute);
-          },
-          borderRadius: BorderRadius.circular(30),
-          child: const Text(
-            "Sign Up",
-            style: TextStyle(color: Colors.blue),
-          ),
-        ),
-      ],
-    ),
-                    
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Are you new? Create an account",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        const SizedBox(width: 5),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, AppRoute.registerRoute);
+                          },
+                          borderRadius: BorderRadius.circular(30),
+                          child: const Text(
+                            "Sign Up",
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

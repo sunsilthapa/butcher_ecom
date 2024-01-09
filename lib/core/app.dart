@@ -10,7 +10,7 @@ class App extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Student App',
+      title: 'Meat Shop App',
       theme: AppTheme.getApplicationTheme(isDark: false),
       initialRoute: AppRoute.splashRoute,
       routes: AppRoute.getApplicationRoute(),

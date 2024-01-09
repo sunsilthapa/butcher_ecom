@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:line_icons/line_icons.dart';
+import 'package:meat_shop/core/common/snackbar/my_snackbar.dart';
+import 'package:meat_shop/features/auth/domain/entity/auth_entity.dart';
+import 'package:meat_shop/features/auth/presentation/view_model/auth_view_model.dart';
 
 class RegisterView extends ConsumerStatefulWidget {
   const RegisterView({super.key});
@@ -9,87 +13,65 @@ class RegisterView extends ConsumerStatefulWidget {
 }
 
 class _RegisterViewState extends ConsumerState<RegisterView> {
-  final _gap = const SizedBox(height: 8);
+  final _gap = const SizedBox(height: 28);
 
   final _key = GlobalKey<FormState>();
-  final _fnameController = TextEditingController(text: 'Kiran');
-  final _lnameController = TextEditingController(text: 'Rana');
-  final _phoneController = TextEditingController(text: '9812345678');
-  final _usernameController = TextEditingController(text: 'kiran');
-  final _passwordController = TextEditingController(text: 'kiran123');
+  final _fnameController = TextEditingController(text: 'user');
+  final _lnameController = TextEditingController(text: 'user');
+  final _emailController = TextEditingController(text: 'user@gmail.com');
+  final _passwordController = TextEditingController(text: 'user123');
+  final _confirmPasswordController = TextEditingController(text: 'user123');
 
-  // final _fnameController = TextEditingController();
-  // final _lnameController = TextEditingController();
-  // final _phoneController = TextEditingController();
-  // final _usernameController = TextEditingController();
-  // final _passwordController = TextEditingController();
-
-  bool isObscure = true;
+  bool isPasswordObscure = true;
+  bool isConfirmPasswordObscure = true;
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(authViewModelProvider);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (authState.showMessage) {
+        showSnackBar(message: "User Registered", context: context);
+        ref.read(authViewModelProvider.notifier).resetMessage(false);
+      }
+    });
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Register'),
-        centerTitle: true,
-      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.symmetric(vertical: 70, horizontal: 10),
             child: Form(
               key: _key,
               child: Column(
                 children: [
-                  InkWell(
-                    onTap: () {
-                      showModalBottomSheet(
-                        backgroundColor: Colors.grey[300],
-                        context: context,
-                        isScrollControlled: true,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(20),
-                          ),
-                        ),
-                        builder: (context) => Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              ElevatedButton.icon(
-                                onPressed: () {},
-                                icon: const Icon(Icons.camera),
-                                label: const Text('Camera'),
-                              ),
-                              ElevatedButton.icon(
-                                onPressed: () {},
-                                icon: const Icon(Icons.image),
-                                label: const Text('Gallery'),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                    child: const SizedBox(
-                      height: 200,
-                      width: 200,
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundImage:
-                            AssetImage('assets/images/profile.png'),
-                        // backgroundImage: _img != null
-                        //     ? FileImage(_img!)
-                        //     : const AssetImage('assets/images/profile.png')
-                        //         as ImageProvider,
-                      ),
+                  const SizedBox(
+                    height: 200,
+                    width: 200,
+                    child: CircleAvatar(
+                      radius: 50,
+                      backgroundImage: AssetImage('assets/images/splash1.png'),
+                      // backgroundImage: _img != null
+                      //     ? FileImage(_img!)
+                      //     : const AssetImage('assets/images/profile.png')
+                      //         as ImageProvider,
                     ),
                   ),
-                  const SizedBox(height: 25),
                   TextFormField(
                     controller: _fnameController,
                     decoration: const InputDecoration(
-                      labelText: 'First Name',
+                      prefixIcon: Icon(LineIcons.user),
+                      // labelText: 'First Name',
+                      // labelStyle: Theme.of(context).textTheme.displayMedium,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
                     ),
                     validator: ((value) {
                       if (value == null || value.isEmpty) {
@@ -101,8 +83,21 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   _gap,
                   TextFormField(
                     controller: _lnameController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(LineIcons.user),
                       labelText: 'Last Name',
+                      labelStyle: Theme.of(context).textTheme.displayMedium,
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                      ),
+                      enabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
                     ),
                     validator: ((value) {
                       if (value == null || value.isEmpty) {
@@ -113,30 +108,26 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   ),
                   _gap,
                   TextFormField(
-                    controller: _phoneController,
-                    decoration: const InputDecoration(
-                      labelText: 'Phone No',
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(LineIcons.mailBulk),
+                      labelText: 'Email',
+                      labelStyle: Theme.of(context).textTheme.displayMedium,
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                      ),
+                      enabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
                     ),
                     validator: ((value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter phoneNo';
-                      }
-                      return null;
-                    }),
-                  ),
-                  _gap,
-                  // DropDown
-                  _gap,
-                  // Multi Checkbox
-                  _gap,
-                  TextFormField(
-                    controller: _usernameController,
-                    decoration: const InputDecoration(
-                      labelText: 'Username',
-                    ),
-                    validator: ((value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter username';
+                        return 'Please enter email';
                       }
                       return null;
                     }),
@@ -144,16 +135,31 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   _gap,
                   TextFormField(
                     controller: _passwordController,
-                    obscureText: isObscure,
+                    obscureText: isPasswordObscure,
                     decoration: InputDecoration(
+                      prefixIcon: const Icon(LineIcons.key),
                       labelText: 'Password',
+                      labelStyle: Theme.of(context).textTheme.displayMedium,
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                      ),
+                      enabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
                       suffixIcon: IconButton(
                         icon: Icon(
-                          isObscure ? Icons.visibility : Icons.visibility_off,
+                          isPasswordObscure
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                         ),
                         onPressed: () {
                           setState(() {
-                            isObscure = !isObscure;
+                            isPasswordObscure = !isPasswordObscure;
                           });
                         },
                       ),
@@ -166,12 +172,59 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                     }),
                   ),
                   _gap,
-
+                  TextFormField(
+                    controller: _confirmPasswordController,
+                    obscureText:
+                        isConfirmPasswordObscure, // Add this line for the "Confirm Password" field
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(LineIcons.key),
+                      labelText: 'Confirm Password',
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                      ),
+                      enabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          isConfirmPasswordObscure
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isConfirmPasswordObscure =
+                                !isConfirmPasswordObscure;
+                          });
+                        },
+                      ),
+                    ),
+                    validator: ((value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter confirm password';
+                      }
+                      return null;
+                    }),
+                  ),
+                  _gap,
                   ElevatedButton(
                     onPressed: () {
-                      if (_key.currentState!.validate()) {}
+                      if (_key.currentState!.validate()) {
+                        AuthEntity user = AuthEntity(
+                            firstName: _fnameController.text,
+                            lastName: _lnameController.text,
+                            email: _emailController.text,
+                            password: _passwordController.text);
+
+                        ref.read(authViewModelProvider.notifier).addUser(user);
+                      }
                     },
-                    child: const Text('Register'),
+                    child: const Text('SignUp'),
                   ),
                 ],
               ),

@@ -1,6 +1,7 @@
 
 import 'package:meat_shop/features/auth/presentation/view/login_view.dart';
 import 'package:meat_shop/features/auth/presentation/view/register_view.dart';
+import 'package:meat_shop/features/home/presentation/view/home_view.dart';
 import 'package:meat_shop/features/splashscreen_view.dart';
 
 class AppRoute {

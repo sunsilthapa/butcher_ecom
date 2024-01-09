@@ -19,13 +19,13 @@ class AppTheme {
               primary: Color.fromARGB(255, 17, 119, 20),
             ),
       brightness: isDark ? Brightness.dark : Brightness.light,
-      fontFamily: 'Lato Light',
+      fontFamily: 'Poppins Light',
       useMaterial3: true,
 
       // Change app bar color
       appBarTheme: const AppBarTheme(
         elevation: 0,
-        backgroundColor: ThemeConstant.appBarColor,
+        backgroundColor: Color.fromARGB(255, 38, 68, 39),
         centerTitle: true,
         titleTextStyle: TextStyle(
           color: Colors.white,
@@ -33,30 +33,31 @@ class AppTheme {
         ),
       ),
 
-        // Heading font
-    textTheme: const TextTheme(
-      displayLarge: TextStyle(
-        fontSize: 32,
-        fontWeight: FontWeight.bold,
-        fontFamily:
-            "Montserrat Bold", // Replace with the actual font family name
-        color: Colors.black,
+      // Heading font
+      textTheme: const TextTheme(
+        displayLarge: TextStyle(
+          fontSize: 32,
+          fontWeight: FontWeight.bold,
+          fontFamily:
+              "Montserrat Bold", // Replace with the actual font family name
+          color: Colors.black,
+        ),
+        displayMedium: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.normal,
+            fontFamily:
+                "Poppins Light", // Replace with the actual font family name
+            color: Colors.black,
+            letterSpacing: 2),
+        // Add more text styles as needed
       ),
-      displayMedium: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.normal,
-        fontFamily: "Lato Bold", // Replace with the actual font family name
-        color: Colors.black,
-      ),
-      // Add more text styles as needed
-    ),
 
       // Change elevated button theme
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           elevation: 0,
           foregroundColor: Colors.white,
-          backgroundColor: ThemeConstant.primaryColor,
+          backgroundColor: const Color.fromARGB(255, 33, 77, 34),
           textStyle: const TextStyle(
             fontSize: 20,
           ),
