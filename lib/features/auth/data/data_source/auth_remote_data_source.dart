@@ -57,7 +57,7 @@ Future<Either<Failure, bool>> login(String username, String password) async {
     Response response = await dio.post(
       ApiEndpoints.login,
       data: {
-        "username": username,
+        "email": username,
         "password": password,
       },
     );

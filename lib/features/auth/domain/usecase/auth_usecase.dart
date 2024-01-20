@@ -30,14 +30,18 @@ class AuthUseCase{
     String username,
     String password,
   ) async {
-    //* call the repo to perform login
-    final result =await _authRepository.login(username, password);
 
-    //* if login success,
-    if(result.isRight()){
-      //* save user token to shared preferences
-      await userSharedPrefs.setUserToken(ApiEndpoints.token);
-    }
-    return result;
+    return await _authRepository.login(username, password);
+
+    
+    // //* call the repo to perform login
+    // final result =await _authRepository.login(username, password);
+
+    // //* if login success,
+    // if(result.isRight()){
+    //   //* save user token to shared preferences
+    //   await userSharedPrefs.setUserToken(ApiEndpoints.token);
+    // }
+    // return result;
   }
 }

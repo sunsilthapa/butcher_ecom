@@ -30,9 +30,9 @@ class ProductRemoteRepository implements ProductRepository {
   }
 
   @override
-  Future<Either<Failure, List<ProductEntity>>> getAllProduct() {
+  Future<Either<Failure, List<ProductEntity>>> getAllProduct(int page) {
     // TODO: implement getAllProduct
-    return productRemoteDataSource.getAllProduct();
+    return productRemoteDataSource.getAllProduct(page);
     throw UnimplementedError();
   }
 

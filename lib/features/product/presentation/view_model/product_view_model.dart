@@ -9,7 +9,7 @@ final productViewModelProvider =
     StateNotifierProvider.autoDispose<ProductViewModel, ProductState>(
   (ref) => ProductViewModel(
     getAllProductUsecase: ref.read(getAllProductUseCaseProvider),
-    addProductUseCase: ref.read(addProductUseCaseProvider), 
+    addProductUseCase: ref.read(addProductUseCaseProvider),
     deleteProductUseCase: ref.read(deleteProductUseCaseProvider),
   ),
 );
@@ -19,23 +19,33 @@ class ProductViewModel extends StateNotifier<ProductState> {
   final AddProductUseCase addProductUseCase;
   final DeleteProductUseCase deleteProductUseCase;
 
-  ProductViewModel({
-    required this.getAllProductUsecase,
-    required this.addProductUseCase,
-    required this.deleteProductUseCase
-  }) : super(ProductState.initialState()) {
+  ProductViewModel(
+      {required this.getAllProductUsecase,
+      required this.addProductUseCase,
+      required this.deleteProductUseCase})
+      : super(ProductState.initialState()) {
     getAllProduct();
   }
 
   Future<void> getAllProduct() async {
     state = state.copyWith(isLoading: true);
-    final result = await getAllProductUsecase.getAllProduct();
+    final currentState = state;
+    final page = currentState.page + 1;
+    final products = currentState.products;
+    final result = await getAllProductUsecase.getAllProduct(page);
     result.fold(
-      (failure) => state = state.copyWith(isLoading: false),
-      (products) => state = state.copyWith(isLoading: false, products: products),
-    );
+        (failure) => state =
+            state.copyWith(isLoading: false, hasReachedMax: true), (data) {
+      if (data.isEmpty) {
+        state = state.copyWith(hasReachedMax: true);
+      } else {
+        state = state.copyWith(
+            isLoading: false, products: [...products, ...data], page: page);
+      }
+    });
   }
 
+//todo: addProduct
   Future<void> addProduct(ProductEntity productEntity) async {
     state = state.copyWith(isLoading: true);
     final result = await addProductUseCase.call(productEntity);
@@ -48,19 +58,17 @@ class ProductViewModel extends StateNotifier<ProductState> {
     );
   }
 
-  Future<void> deleteProduct(String id) async{
-    state = state.copyWith(isLoading:  true);
+
+  Future<void> deleteProduct(String id) async {
+    state = state.copyWith(isLoading: true);
     final result = await deleteProductUseCase.deleteProduct(id);
-    result.fold(
-      (failure)=> state  = state.copyWith(isLoading: false),
-      (isDeleted){
-        state = state.copyWith(isLoading: false, showMessage: true);
-        getAllProduct();
-      }
-    );
+    result.fold((failure) => state = state.copyWith(isLoading: false),
+        (isDeleted) {
+      state = state.copyWith(isLoading: false, showMessage: true);
+      getAllProduct();
+    });
   }
 
-  
   void resetMessage(bool value) {
     state = state.copyWith(showMessage: value);
   }

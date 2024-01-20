@@ -26,7 +26,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
     final authState = ref.watch(authViewModelProvider);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (authState.showMessage && authState.error != null) {
-        showSnackBar(message: "Invalid Credentials", context: context);
+        showSnackBar(message: "$authState.error", context: context);
         ref.read(authViewModelProvider.notifier).resetMessage();
       }
     });
@@ -111,7 +111,6 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     _gap,
                     ElevatedButton(
                       onPressed: () async {
-                        Navigator.pushNamed(context, AppRoute.homeRoute);
                         if (_formKey.currentState!.validate()) {
                           await ref.read(authViewModelProvider.notifier).login(
                               context,

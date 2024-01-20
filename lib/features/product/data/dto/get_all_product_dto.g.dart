@@ -9,8 +9,8 @@ part of 'get_all_product_dto.dart';
 GetAllProductDTO _$GetAllProductDTOFromJson(Map<String, dynamic> json) =>
     GetAllProductDTO(
       success: json['success'] as bool,
-      count: json['count'] as int,
-      data: (json['data'] as List<dynamic>)
+      message: json['message'] as String,
+      products: (json['products'] as List<dynamic>)
           .map((e) => ProductAPIModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -18,6 +18,6 @@ GetAllProductDTO _$GetAllProductDTOFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$GetAllProductDTOToJson(GetAllProductDTO instance) =>
     <String, dynamic>{
       'success': instance.success,
-      'count': instance.count,
-      'data': instance.data,
+      'message': instance.message,
+      'products': instance.products,
     };

@@ -19,7 +19,7 @@ final productRepositoryProvider = Provider.autoDispose<ProductRepository>(
 
 abstract class ProductRepository {
   Future<Either<Failure, bool>> addProduct(ProductEntity product);
-  Future<Either<Failure, List<ProductEntity>>> getAllProduct();
+  Future<Either<Failure, List<ProductEntity>>> getAllProduct(int page);
   Future<Either<Failure, List<ProductEntity>>> getSingleProductById(String productId);
   Future<Either<Failure, bool>> deleteProduct(String id);
   Future<Either<Failure, bool>> editProduct(String id);

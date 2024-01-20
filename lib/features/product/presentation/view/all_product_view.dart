@@ -11,35 +11,60 @@ class AllProductView extends ConsumerStatefulWidget {
 
 class _AllProductViewState extends ConsumerState<AllProductView> {
 
+  final ScrollController _scrollController = ScrollController();
+
+   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final productState = ref.watch(productViewModelProvider);
-    return Container(
-      child:  productState.isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : Expanded(
-                    child: ListView.builder(
-                      itemCount: productState.products.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(
-                            productState.products[index].productName,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+    return NotificationListener(
+      onNotification: ((notification) {
+       if(notification is ScrollEndNotification){
+         if(_scrollController.position.extentAfter == 0){
+          ref.read(productViewModelProvider.notifier).getAllProduct();
+        }
+       }
+       return true;
+      }),
+      child: Column(
+        children:[ 
+                  Expanded(
+                      child: ListView.builder(
+                        itemCount: productState.products.length,
+                        controller: _scrollController,
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final product = productState.products[index];
+                          return ListTile(
+                            title: Text(
+                              product.productName,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16
+                              ),
                             ),
-                          ),
-                          subtitle: Text(
-                            productState.products[index].productId ?? 'No id',
-                            style: const TextStyle(
-                              color: Colors.indigo,
-                              fontSize: 12,
+                            subtitle: Text(
+                              product.productId ?? 'No id',
+                              style: const TextStyle(
+                                color: Colors.indigo,
+                                fontSize: 12,
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
-                  ),
+                    if(productState.isLoading)
+                    const CircularProgressIndicator(color: Colors.red),
+
+                    const SizedBox(height: 10,)
+                    ]
+      ),
     );
   }
 }

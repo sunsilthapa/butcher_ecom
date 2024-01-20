@@ -42,13 +42,18 @@ class ProductRemoteDataSource {
   // }
 
   //todo: get all products
-  Future<Either<Failure, List<ProductEntity>>> getAllProduct() async {
+  Future<Either<Failure, List<ProductEntity>>> getAllProduct(int page) async {
     try {
-      var response = await dio.get(ApiEndpoints.getAllProduct);
+      var response = await dio.get(ApiEndpoints.getAllProduct,
+       queryParameters: {
+        "_page": page,
+        "_limit": ApiEndpoints.limitPage,
+      });
+    
       if (response.statusCode == 200) {
         //* Convert ProductAPIModel to ProductEntity
         GetAllProductDTO productAddDTO = GetAllProductDTO.fromJson(response.data);
-        List<ProductEntity> productList = productAddDTO.data
+        List<ProductEntity> productList = productAddDTO.products
             .map((product) => ProductAPIModel.toEntity(product))
             .toList();
 

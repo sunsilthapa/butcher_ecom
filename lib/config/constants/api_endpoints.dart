@@ -18,5 +18,7 @@ class ApiEndpoints {
 
   static  String token = '';
 
+    static const limitPage = 6;
+
 
 }
