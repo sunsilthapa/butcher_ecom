@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:meat_shop/config/router/app_route.dart';
 import 'package:meat_shop/core/common/snackbar/my_snackbar.dart';
 import 'package:meat_shop/features/auth/domain/entity/auth_entity.dart';
 import 'package:meat_shop/features/auth/presentation/view_model/auth_view_model.dart';
@@ -13,14 +14,14 @@ class RegisterView extends ConsumerStatefulWidget {
 }
 
 class _RegisterViewState extends ConsumerState<RegisterView> {
-  final _gap = const SizedBox(height: 28);
+  final _gap = const SizedBox(height: 15);
 
   final _key = GlobalKey<FormState>();
-  final _fnameController = TextEditingController(text: 'user');
-  final _lnameController = TextEditingController(text: 'user');
-  final _emailController = TextEditingController(text: 'user@gmail.com');
-  final _passwordController = TextEditingController(text: 'user123');
-  final _confirmPasswordController = TextEditingController(text: 'user123');
+  final _fnameController = TextEditingController(text: 'user2');
+  final _lnameController = TextEditingController(text: 'user2');
+  final _emailController = TextEditingController(text: 'user2@gmail.com');
+  final _passwordController = TextEditingController(text: 'user1234');
+  final _confirmPasswordController = TextEditingController(text: 'user1234');
 
   bool isPasswordObscure = true;
   bool isConfirmPasswordObscure = true;
@@ -31,7 +32,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (authState.showMessage) {
         showSnackBar(message: "User Registered", context: context);
-        ref.read(authViewModelProvider.notifier).resetMessage(false);
+        ref.read(authViewModelProvider.notifier).resetMessage();
       }
     });
     return Scaffold(
@@ -44,17 +45,13 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
               child: Column(
                 children: [
                   const SizedBox(
-                    height: 200,
                     width: 200,
-                    child: CircleAvatar(
-                      radius: 50,
-                      backgroundImage: AssetImage('assets/images/splash1.png'),
-                      // backgroundImage: _img != null
-                      //     ? FileImage(_img!)
-                      //     : const AssetImage('assets/images/profile.png')
-                      //         as ImageProvider,
+                    height: 200,
+                    child: Image(
+                      image: AssetImage("assets/images/logo.png"),
                     ),
                   ),
+                  _gap,
                   TextFormField(
                     controller: _fnameController,
                     decoration: const InputDecoration(
@@ -83,18 +80,18 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   _gap,
                   TextFormField(
                     controller: _lnameController,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(LineIcons.user),
-                      labelText: 'Last Name',
-                      labelStyle: Theme.of(context).textTheme.displayMedium,
-                      border: const OutlineInputBorder(
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(LineIcons.user),
+                      // labelText: 'Last Name',
+                      // labelStyle: Theme.of(context).textTheme.displayMedium,
+                      border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
-                      enabledBorder: const OutlineInputBorder(
+                      enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
                         borderSide: BorderSide(color: Colors.grey),
                       ),
-                      focusedBorder: const OutlineInputBorder(
+                      focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
                         borderSide: BorderSide(color: Colors.green),
                       ),
@@ -109,18 +106,18 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   _gap,
                   TextFormField(
                     controller: _emailController,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(LineIcons.mailBulk),
-                      labelText: 'Email',
-                      labelStyle: Theme.of(context).textTheme.displayMedium,
-                      border: const OutlineInputBorder(
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(LineIcons.mailBulk),
+                      // labelText: 'Email',
+                      // labelStyle: Theme.of(context).textTheme.displayMedium,
+                      border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
-                      enabledBorder: const OutlineInputBorder(
+                      enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
                         borderSide: BorderSide(color: Colors.grey),
                       ),
-                      focusedBorder: const OutlineInputBorder(
+                      focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
                         borderSide: BorderSide(color: Colors.green),
                       ),
@@ -138,8 +135,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                     obscureText: isPasswordObscure,
                     decoration: InputDecoration(
                       prefixIcon: const Icon(LineIcons.key),
-                      labelText: 'Password',
-                      labelStyle: Theme.of(context).textTheme.displayMedium,
+                      // labelText: 'Password',
+                      // labelStyle: Theme.of(context).textTheme.displayMedium,
                       border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
@@ -178,7 +175,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                         isConfirmPasswordObscure, // Add this line for the "Confirm Password" field
                     decoration: InputDecoration(
                       prefixIcon: const Icon(LineIcons.key),
-                      labelText: 'Confirm Password',
+                      // labelText: 'Confirm Password',
                       border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
@@ -212,19 +209,46 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                     }),
                   ),
                   _gap,
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_key.currentState!.validate()) {
-                        AuthEntity user = AuthEntity(
-                            firstName: _fnameController.text,
-                            lastName: _lnameController.text,
-                            email: _emailController.text,
-                            password: _passwordController.text);
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_key.currentState!.validate()) {
+                          AuthEntity user = AuthEntity(
+                              firstName: _fnameController.text,
+                              lastName: _lnameController.text,
+                              email: _emailController.text,
+                              password: _passwordController.text);
 
-                        ref.read(authViewModelProvider.notifier).addUser(user);
-                      }
-                    },
-                    child: const Text('SignUp'),
+                          ref
+                              .read(authViewModelProvider.notifier)
+                              .addUser(user);
+                        }
+                      },
+                      child: const Text('SignUp'),
+                    ),
+                  ),
+                  _gap,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Already have account?",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      const SizedBox(width: 5),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, AppRoute.loginRoute);
+                        },
+                        borderRadius: BorderRadius.circular(30),
+                        child: const Text(
+                          "Sing In",
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

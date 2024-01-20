@@ -58,6 +58,7 @@ dependencies:
   connectivity_plus: ^5.0.2
   awesome_dio_interceptor: ^1.0.0
   line_icons: ^2.0.3
+  image_picker: ^1.0.7
 
 dev_dependencies:
   flutter_test:

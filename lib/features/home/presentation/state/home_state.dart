@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meat_shop/features/home/presentation/view/bottom_view/cart_page_view.dart';
 import 'package:meat_shop/features/home/presentation/view/bottom_view/dashboard_view.dart';
-import 'package:meat_shop/features/home/presentation/view/bottom_view/favorite_page_view.dart';
 import 'package:meat_shop/features/home/presentation/view/bottom_view/profile_view.dart';
+import 'package:meat_shop/features/product/presentation/view/all_product_view.dart';
 
 class HomeState {
   final int index;
@@ -14,7 +14,7 @@ class HomeState {
   :  index= 0,
    lstScreen= [
       const DashboardView(),
-      const FavoritePageView(),
+      const AllProductView(),
       const CartPageView(),
       const ProfileView(),
     ];
