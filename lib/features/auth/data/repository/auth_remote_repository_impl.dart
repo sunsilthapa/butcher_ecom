@@ -23,5 +23,11 @@ class AuthREemoteRepositoryImpl implements AuthRepository{
     return authRemoteDataSource.registerUser(user);
     // throw UnimplementedError();
   }
+  
+  @override
+  Future<Either<Failure, bool>> login(String username, String password) {
+    // TODO: implement login
+    return authRemoteDataSource.login(username,password);
+  }
 
 }
