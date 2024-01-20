@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:meat_shop/config/router/app_route.dart';
+import 'package:meat_shop/core/common/snackbar/my_snackbar.dart';
+import 'package:meat_shop/features/auth/presentation/view_model/auth_view_model.dart';
 
 class LoginView extends ConsumerStatefulWidget {
   const LoginView({super.key});
@@ -14,15 +16,20 @@ class LoginView extends ConsumerStatefulWidget {
 
 class _LoginViewState extends ConsumerState<LoginView> {
   final _formKey = GlobalKey<FormState>();
-  final _usernameController = TextEditingController(text: 'kiran');
-  final _passwordController = TextEditingController(text: 'kiran123');
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
 
-  // final _usernameController = TextEditingController();
-  // final _passwordController = TextEditingController();
-  final _gap = const SizedBox(height: 18);
+  final _gap = const SizedBox(height: 20);
   bool isObscure = true;
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(authViewModelProvider);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (authState.showMessage && authState.error != null) {
+        showSnackBar(message: "Invalid Credentials", context: context);
+        ref.read(authViewModelProvider.notifier).resetMessage();
+      }
+    });
     return Scaffold(
       body: SafeArea(
         child: Form(
@@ -33,28 +40,29 @@ class _LoginViewState extends ConsumerState<LoginView> {
                 padding: const EdgeInsets.all(8),
                 child: Column(
                   children: [
-                    Text(" B-Shop",
-                        style: Theme.of(context).textTheme.displayLarge),
+                    const SizedBox(
+                      height: 150,
+                      width: 150,
+                      child: Image(image: AssetImage("assets/images/logo.png")),
+                    ),
                     _gap,
                     TextFormField(
                       key: const ValueKey('username'),
                       controller: _usernameController,
-                      decoration: InputDecoration(
-                          prefixIcon: const Icon(LineIcons.user),
-                          border: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                          ),
-                          enabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                          focusedBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            borderSide: BorderSide(color: Colors.green),
-                          ),
-                          labelText: 'Username',
-                          labelStyle:
-                              Theme.of(context).textTheme.displayMedium),
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(LineIcons.user),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          borderSide: BorderSide(color: Colors.green),
+                        ),
+                      ),
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Please enter username';
@@ -80,8 +88,8 @@ class _LoginViewState extends ConsumerState<LoginView> {
                           borderSide: BorderSide(color: Colors.green),
                         ),
                         prefixIcon: const Icon(LineIcons.lock),
-                        labelText: 'Password',
-                        labelStyle: Theme.of(context).textTheme.displayMedium,
+                        // labelText: 'Password',
+                        // labelStyle: Theme.of(context).textTheme.displayMedium,
                         suffixIcon: IconButton(
                           icon: Icon(
                             isObscure ? Icons.visibility : Icons.visibility_off,
@@ -104,9 +112,12 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     ElevatedButton(
                       onPressed: () async {
                         Navigator.pushNamed(context, AppRoute.homeRoute);
-                        // if (_formKey.currentState!.validate()) {
-
-                        // }
+                        if (_formKey.currentState!.validate()) {
+                          await ref.read(authViewModelProvider.notifier).login(
+                              context,
+                              _usernameController.text,
+                              _passwordController.text);
+                        }
                       },
                       child: const SizedBox(
                         height: 50,
