@@ -9,7 +9,14 @@ class ApiEndpoints {
   // static const String baseUrl = "http://localhost:3000/api/v1/";
   //static const String baseUrl = "http://192.168.4.4:3000/api/v1/";
 
-  // ====================== Auth Routes ======================
+  //? ====================== Auth Routes ======================
   static const String login = "user/login";
   static const String register = "user/create";
+
+  //? ===================== Product Routes==========================
+  static const String getAllProduct = "product/get_products";
+
+  static  String token = '';
+
+
 }
